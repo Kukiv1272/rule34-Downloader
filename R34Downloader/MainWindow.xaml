@@ -1,6 +1,7 @@
 <Window x:Class="R34Downloader.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:res="clr-namespace:R34Downloader.Resources"
         Title="rule34 Downloader"
         Width="920" Height="640"
         MinWidth="700" MinHeight="480"
@@ -30,7 +31,7 @@
         <!-- Правая часть: статус -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                     VerticalAlignment="Center">
-          <TextBlock x:Name="StatusLabel" Text="не запущен" FontSize="10"
+          <TextBlock x:Name="StatusLabel" Text="{x:Static res:Strings.StatusIdle}" FontSize="10"
                      Foreground="{StaticResource BrushDim}" Margin="0,0,6,0"
                      VerticalAlignment="Center"/>
           <TextBlock x:Name="StatusDot" Text="●" FontSize="14"
@@ -59,35 +60,35 @@
         <StackPanel Margin="0,0,0,12">
 
           <!-- АВТОРИЗАЦИЯ -->
-          <TextBlock Text="АВТОРИЗАЦИЯ" FontSize="10"
+          <TextBlock Text="{x:Static res:Strings.SectionAuth}" FontSize="10"
                      Foreground="{StaticResource BrushDim}"
                      Margin="18,14,18,2"/>
 
-          <TextBlock Text="API Key" FontSize="11"
+          <TextBlock Text="{x:Static res:Strings.LabelApiKey}" FontSize="11"
                      Foreground="{StaticResource BrushText}"
                      Margin="18,6,18,1"/>
           <PasswordBox x:Name="ApiKeyBox"
                        Style="{StaticResource DarkPasswordBox}"
                        Margin="18,0,18,4"
-                       ToolTip="128-символьный ключ от rule34.xxx"/>
+                       ToolTip="{x:Static res:Strings.ToolTipApiKey}"/>
 
-          <TextBlock Text="User ID" FontSize="11"
+          <TextBlock Text="{x:Static res:Strings.LabelUserId}" FontSize="11"
                      Foreground="{StaticResource BrushText}"
                      Margin="18,6,18,1"/>
           <TextBox x:Name="UserIdBox"
                    Style="{StaticResource DarkTextBox}"
-                   Tag="например: 6087836"
+                   Tag="{x:Static res:Strings.PlaceholderUserId}"
                    Margin="18,0,18,4"/>
 
           <!-- Разделитель -->
           <Border Height="1" Background="{StaticResource BrushBorder}" Margin="18,6"/>
 
           <!-- ЗАГРУЗКА -->
-          <TextBlock Text="ЗАГРУЗКА" FontSize="10"
+          <TextBlock Text="{x:Static res:Strings.SectionDownload}" FontSize="10"
                      Foreground="{StaticResource BrushDim}"
                      Margin="18,8,18,2"/>
 
-          <TextBlock Text="Папка с тегами / скачивания" FontSize="11"
+          <TextBlock Text="{x:Static res:Strings.LabelTagsFolder}" FontSize="11"
                      Foreground="{StaticResource BrushText}"
                      Margin="18,6,18,1"/>
           <Grid Margin="18,0,18,6">
@@ -98,7 +99,7 @@
             <TextBox x:Name="DirBox"
                      Grid.Column="0"
                      Style="{StaticResource DarkTextBox}"
-                     Tag="путь к папке..."
+                     Tag="{x:Static res:Strings.PlaceholderDir}"
                      Margin="0,0,4,0"/>
             <Button Grid.Column="1"
                     Content="..."
@@ -111,7 +112,7 @@
                     Style="{StaticResource BaseButton}"/>
           </Grid>
 
-          <TextBlock Text="Потоков загрузки" FontSize="11"
+          <TextBlock Text="{x:Static res:Strings.LabelThreads}" FontSize="11"
                      Foreground="{StaticResource BrushText}"
                      Margin="18,6,18,1"/>
           <TextBlock x:Name="ThreadsLabel" Text="4"
@@ -129,18 +130,18 @@
           <Border Height="1" Background="{StaticResource BrushBorder}" Margin="18,6"/>
 
           <!-- ОПЦИИ -->
-          <TextBlock Text="ОПЦИИ" FontSize="10"
+          <TextBlock Text="{x:Static res:Strings.SectionOptions}" FontSize="10"
                      Foreground="{StaticResource BrushDim}"
                      Margin="18,8,18,2"/>
 
           <CheckBox x:Name="SkipExistingCheck"
-                    Content="Пропускать существующие файлы"
+                    Content="{x:Static res:Strings.CheckSkipExisting}"
                     IsChecked="True"
                     Style="{StaticResource DarkCheckBox}"
                     Margin="18,4,18,4"/>
 
           <CheckBox x:Name="DryRunCheck"
-                    Content="Dry-run (без скачивания)"
+                    Content="{x:Static res:Strings.CheckDryRun}"
                     IsChecked="False"
                     Style="{StaticResource DarkCheckBox}"
                     Margin="18,0,18,14"/>
@@ -161,10 +162,10 @@
 
         <!-- Заголовок лога -->
         <Grid Grid.Row="0" Margin="16,12,16,4">
-          <TextBlock Text="ЛОГ" FontSize="10"
+          <TextBlock Text="{x:Static res:Strings.SectionLog}" FontSize="10"
                      Foreground="{StaticResource BrushDim}"
                      VerticalAlignment="Center"/>
-          <Button Content="очистить"
+          <Button Content="{x:Static res:Strings.BtnClearLog}"
                   HorizontalAlignment="Right"
                   Style="{StaticResource GhostButton}"
                   Click="ClearLog_Click"/>
@@ -213,12 +214,12 @@
         <!-- Левые кнопки -->
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
           <Button x:Name="BtnCheckAccess"
-                  Content="ПРОВЕРИТЬ ДОСТУП"
+                  Content="{x:Static res:Strings.BtnCheckAccess}"
                   Style="{StaticResource OutlineButton}"
                   Margin="0,0,8,0"
                   Click="BtnCheckAccess_Click"/>
           <Button x:Name="BtnRebuildIndex"
-                  Content="ПРОВЕРКА СПИСКОВ"
+                  Content="{x:Static res:Strings.BtnRebuildIndex}"
                   Style="{StaticResource OutlineButton}"
                   Click="BtnRebuildIndex_Click"/>
         </StackPanel>
@@ -227,13 +228,13 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                     VerticalAlignment="Center">
           <Button x:Name="BtnStop"
-                  Content="СТОП"
+                  Content="{x:Static res:Strings.BtnStop}"
                   Style="{StaticResource StopButton}"
                   IsEnabled="False"
                   Margin="0,0,8,0"
                   Click="BtnStop_Click"/>
           <Button x:Name="BtnStart"
-                  Content="НАЧАТЬ ЗАГРУЗКУ"
+                  Content="{x:Static res:Strings.BtnStart}"
                   Style="{StaticResource AccentButton}"
                   Click="BtnStart_Click"/>
         </StackPanel>

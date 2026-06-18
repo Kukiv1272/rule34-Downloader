@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using Microsoft.Win32;
+using R34Downloader.Resources;
 
 namespace R34Downloader;
 
@@ -70,12 +71,12 @@ public partial class MainWindow : Window
         var dir = DirBox.Text.Trim();
         if (string.IsNullOrEmpty(dir))
         {
-            Log("! Укажите папку с тегами");
+            Log(Strings.ErrNoFolder);
             return null;
         }
         if (!Directory.Exists(dir))
         {
-            Log($"! Папка не найдена: {dir}");
+            Log(string.Format(Strings.ErrFolderNotFound, dir));
             return null;
         }
 
@@ -93,7 +94,7 @@ public partial class MainWindow : Window
     {
         if (_running)
         {
-            Log("! Уже выполняется операция");
+            Log(Strings.ErrAlreadyRunning);
             return false;
         }
         _cts = new CancellationTokenSource();
@@ -114,7 +115,7 @@ public partial class MainWindow : Window
         // OpenFolderDialog доступен в .NET 8 WPF без WinForms
         var dlg = new OpenFolderDialog
         {
-            Title = "Выберите папку с тегами",
+            Title = Strings.BrowseFolderTitle,
         };
         if (!string.IsNullOrEmpty(DirBox.Text) && Directory.Exists(DirBox.Text))
             dlg.InitialDirectory = DirBox.Text;
@@ -139,7 +140,7 @@ public partial class MainWindow : Window
     {
         if (!Acquire()) return;
         SetButtons(true);
-        SetStatus("проверка...", ColYellow);
+        SetStatus(Strings.StatusChecking, ColYellow);
 
         var apiKey = ApiKeyBox.Password.Trim();
         var userId = UserIdBox.Text.Trim();
@@ -150,12 +151,12 @@ public partial class MainWindow : Window
             try
             {
                 await Downloader.CheckAccessAsync(apiKey, userId, Log, ct);
-                SetStatus("проверка завершена", ColGreen);
+                SetStatus(Strings.StatusCheckDone, ColGreen);
             }
             catch (Exception ex)
             {
-                Log($"! Ошибка: {ex.Message}");
-                SetStatus("ошибка", ColRed);
+                Log(string.Format(Strings.LogErrorPrefix, ex.Message));
+                SetStatus(Strings.StatusError, ColRed);
             }
             finally { Release(); }
         }, ct);
@@ -169,24 +170,24 @@ public partial class MainWindow : Window
         var dir = DirBox.Text.Trim();
         if (string.IsNullOrEmpty(dir))
         {
-            Log("! Укажите папку с тегами");
+            Log(Strings.ErrNoFolder);
             Release();
             return;
         }
         SetButtons(true);
-        SetStatus("индексация...", ColYellow);
+        SetStatus(Strings.StatusIndexing, ColYellow);
         var ct = _cts!.Token;
 
         _ = Task.Run(() =>
         {
             try
             {
-                Log("── Пересоздание индексов ────────────────────");
+                Log(Strings.LogRebuildHeader);
                 var folders = Downloader.ScanFolders(dir);
                 if (folders.Count == 0)
                 {
-                    Log("  Нет папок в директории.");
-                    SetStatus("нет папок", ColRed);
+                    Log(Strings.LogNoFoldersInDir);
+                    SetStatus(Strings.StatusNoFolders, ColRed);
                     return;
                 }
 
@@ -196,19 +197,19 @@ public partial class MainWindow : Window
                     var folder = folders[i];
                     var name   = Path.GetFileName(folder);
                     int count  = Downloader.RebuildIndex(folder);
-                    Log($"  {name}: {count} файлов в индексе");
+                    Log(string.Format(Strings.LogFilesInIndex, name, count));
                     SetProgress((double)(i + 1) / folders.Count,
-                                $"{i + 1}/{folders.Count} папок");
+                                string.Format(Strings.LogFoldersProgress, i + 1, folders.Count));
                 }
 
-                Log("── Готово ───────────────────────────────────");
-                SetStatus("индексация завершена", ColGreen);
+                Log(Strings.LogRebuildDone);
+                SetStatus(Strings.StatusIndexDone, ColGreen);
                 SetProgress(1.0, "");
             }
             catch (Exception ex)
             {
-                Log($"! Ошибка: {ex.Message}");
-                SetStatus("ошибка", ColRed);
+                Log(string.Format(Strings.LogErrorPrefix, ex.Message));
+                SetStatus(Strings.StatusError, ColRed);
             }
             finally { Release(); }
         }, ct);
@@ -223,18 +224,18 @@ public partial class MainWindow : Window
         if (cfg is null) { Release(); return; }
 
         SetButtons(true);
-        SetStatus("загрузка...", ColAccent);
+        SetStatus(Strings.StatusLoading, ColAccent);
         SetProgress(0, "");
 
-        Log("── Запуск ───────────────────────────────────");
-        Log($"  Директория : {cfg.BaseDir}");
-        Log($"  Потоки     : {cfg.Threads}");
-        Log($"  Dry-run    : {cfg.DryRun}");
-        Log($"  Пропускать : {cfg.SkipExisting}");
+        Log(Strings.LogStartHeader);
+        Log(string.Format(Strings.LogDirLabel, cfg.BaseDir));
+        Log(string.Format(Strings.LogThreadsLabel, cfg.Threads));
+        Log(string.Format(Strings.LogDryRunLabel, cfg.DryRun));
+        Log(string.Format(Strings.LogSkipLabel, cfg.SkipExisting));
         var auth = (!string.IsNullOrEmpty(cfg.ApiKey) && !string.IsNullOrEmpty(cfg.UserId))
-            ? $"user_id={cfg.UserId}" : "анонимно";
-        Log($"  Авторизация: {auth}");
-        Log("─────────────────────────────────────────────");
+            ? $"user_id={cfg.UserId}" : Strings.LogAuthAnon;
+        Log(string.Format(Strings.LogAuthLabel, auth));
+        Log(Strings.LogSeparator);
 
         var ct = _cts!.Token;
         _ = Task.Run(async () =>
@@ -243,14 +244,14 @@ public partial class MainWindow : Window
             {
                 await Downloader.RunAsync(cfg, Log, SetProgress, SetStatus, ct);
             }
-            catch (OperationCanceledException) { /* уже обработано внутри RunAsync */ }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                Log($"! Неожиданная ошибка: {ex.Message}");
-                SetStatus("ошибка", ColRed);
+                Log(string.Format(Strings.LogUnexpectedError, ex.Message));
+                SetStatus(Strings.StatusError, ColRed);
             }
             finally { Release(); }
-        }, CancellationToken.None);  // Task.Run сам не должен отменяться, логика внутри
+        }, CancellationToken.None);
     }
 
     // ── Стоп ──────────────────────────────────────────────────────────────────
@@ -259,7 +260,7 @@ public partial class MainWindow : Window
     {
         if (!_running || _cts is null) return;
         _cts.Cancel();
-        Log("  >> Отправлен сигнал остановки...");
-        SetStatus("остановка...", ColYellow);
+        Log(Strings.LogStopSignal);
+        SetStatus(Strings.StatusStopping, ColYellow);
     }
 }

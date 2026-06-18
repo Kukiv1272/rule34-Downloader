@@ -2,6 +2,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Xml.Linq;
+using R34Downloader.Resources;
 
 namespace R34Downloader;
 
@@ -293,12 +294,12 @@ public class Downloader
         var folders = ScanFolders(cfg.BaseDir);
         if (folders.Count == 0)
         {
-            log("! Нет папок в директории.");
-            setStatus("нет папок", "#E74C3C");
+            log(Strings.LogNoFolders);
+            setStatus(Strings.StatusNoFolders, "#E74C3C");
             return;
         }
 
-        log($"  Артистов: {folders.Count}");
+        log(string.Format(Strings.LogArtistCount, folders.Count));
 
         using var client = BuildClient();
 
@@ -312,31 +313,31 @@ public class Downloader
             var folder = folders[fi];
             var tag    = Path.GetFileName(folder);
 
-            log($"\n[ {tag} ]  — сбор постов...");
-            setStatus($"сбор: {tag}", "#F39C12");
+            log($"\n{string.Format(Strings.LogCollecting, tag)}");
+            setStatus(string.Format(Strings.StatusCollecting, tag), "#F39C12");
 
             var posts = await CollectAllPostsAsync(client, tag, cfg.ApiKey, cfg.UserId, ct);
             if (ct.IsCancellationRequested) break;
 
             if (posts.Count == 0)
             {
-                log($"  {tag}: постов не найдено");
-                setProgress((double)(fi + 1) / folders.Count, $"папка {fi + 1}/{folders.Count}");
+                log(string.Format(Strings.LogNoPostsFound, tag));
+                setProgress((double)(fi + 1) / folders.Count, string.Format(Strings.LogFolderProgress, fi + 1, folders.Count));
                 continue;
             }
 
-            log($"  {tag}: найдено {posts.Count} постов");
+            log(string.Format(Strings.LogPostsFound, tag, posts.Count));
 
             if (cfg.DryRun)
             {
-                log($"  {tag}: dry-run, пропускаем");
-                setProgress((double)(fi + 1) / folders.Count, $"папка {fi + 1}/{folders.Count}");
+                log(string.Format(Strings.LogDryRunSkip, tag));
+                setProgress((double)(fi + 1) / folders.Count, string.Format(Strings.LogFolderProgress, fi + 1, folders.Count));
                 continue;
             }
 
             var artistIndex = LoadIndex(folder);
             var artistLock  = new object();
-            setStatus($"загрузка: {tag}", "#C0392B");
+            setStatus(string.Format(Strings.StatusDownloading, tag), "#C0392B");
 
             int ok = 0, skip = 0, fail = 0;
             int done = 0;
@@ -387,10 +388,10 @@ public class Downloader
             totalOk   += ok;
             totalSkip += skip;
             totalFail += fail;
-            log($"  {tag}: готово — ok={ok}  skip={skip}  fail={fail}");
+            log(string.Format(Strings.LogFolderDone, tag, ok, skip, fail));
 
             if (!ct.IsCancellationRequested)
-                setProgress((double)(fi + 1) / folders.Count, $"папка {fi + 1}/{folders.Count}");
+                setProgress((double)(fi + 1) / folders.Count, string.Format(Strings.LogFolderProgress, fi + 1, folders.Count));
         }
 
         var elapsed = DateTime.UtcNow - startTime;
@@ -398,18 +399,14 @@ public class Downloader
 
         if (ct.IsCancellationRequested)
         {
-            log("\n── Остановлено пользователем ────────────────");
-            setStatus("остановлено", "#F39C12");
+            log($"\n{Strings.LogStoppedByUser}");
+            setStatus(Strings.StatusStopped, "#F39C12");
         }
         else
         {
-            log($"\n── Готово!  {elapsedStr}" +
-                $"  скачано: {totalOk}" +
-                $"  пропущено: {totalSkip}" +
-                $"  ошибок: {totalFail}" +
-                $" ────────");
-            setStatus($"готово  ok={totalOk}  skip={totalSkip}  fail={totalFail}", "#27AE60");
-            setProgress(1.0, $"Всего: {elapsedStr}");
+            log($"\n{string.Format(Strings.LogFinished, elapsedStr, totalOk, totalSkip, totalFail)}");
+            setStatus(string.Format(Strings.StatusFinished, totalOk, totalSkip, totalFail), "#27AE60");
+            setProgress(1.0, string.Format(Strings.LogTotalTime, elapsedStr));
         }
     }
 
@@ -423,12 +420,12 @@ public class Downloader
         using var client = BuildClient();
         client.Timeout = TimeSpan.FromSeconds(10);
 
-        log("── Проверка доступа ─────────────────────────");
+        log(Strings.LogCheckAccessHeader);
 
         var checks = new[]
         {
-            ("rule34.xxx (сайт)",    "https://rule34.xxx/"),
-            ("api.rule34.xxx (API)", "https://api.rule34.xxx/index.php" +
+            (Strings.LogSiteName,    "https://rule34.xxx/"),
+            (Strings.LogApiName, "https://api.rule34.xxx/index.php" +
                                      "?page=dapi&s=post&q=index&limit=1&tags=test"),
         };
 
@@ -450,7 +447,7 @@ public class Downloader
 
         if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(userId))
         {
-            log($"  API ключ (user_id={userId}) ...");
+            log(string.Format(Strings.LogApiKeyCheck, userId));
             try
             {
                 var url  = $"{ApiUrl}?page=dapi&s=post&q=index&limit=1&tags=test" +
@@ -459,22 +456,22 @@ public class Downloader
                 var resp = await client.GetAsync(url, ct);
                 var msg  = resp.StatusCode switch
                 {
-                    HttpStatusCode.OK        => "OK (ключ принят)",
-                    HttpStatusCode.Forbidden => "FAIL (403 — ключ отклонён)",
-                    _                        => $"?? (статус {(int)resp.StatusCode})",
+                    HttpStatusCode.OK        => Strings.LogApiKeyOk,
+                    HttpStatusCode.Forbidden => Strings.LogApiKeyFail,
+                    _                        => string.Format(Strings.LogApiKeyUnknown, (int)resp.StatusCode),
                 };
-                log($"  API ключ ... {msg}");
+                log($"  API key ... {msg}");
             }
             catch (Exception ex)
             {
-                log($"  API ключ ... FAIL ({ex.Message})");
+                log($"  API key ... FAIL ({ex.Message})");
             }
         }
         else
         {
-            log("  Авторизация не настроена — API_KEY и USER_ID пусты");
+            log(Strings.LogNoAuth);
         }
 
-        log("─────────────────────────────────────────────");
+        log(Strings.LogSeparator);
     }
 }

@@ -30,12 +30,15 @@
     <SatelliteResourceLanguages>ru;en</SatelliteResourceLanguages>
   </PropertyGroup>
 
-  <!--
-    Иконка приложения — опциональна.
-    Если файл r34_icon.ico лежит рядом с .csproj, раскомментируй строку ниже:
-  -->
-  <PropertyGroup Condition="Exists('r34_icon.ico')">
+  <PropertyGroup>
     <ApplicationIcon>r34_icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>

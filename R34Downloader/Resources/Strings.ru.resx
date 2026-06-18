@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SectionAuth" xml:space="preserve">
+    <value>АВТОРИЗАЦИЯ</value>
+  </data>
+  <data name="SectionDownload" xml:space="preserve">
+    <value>ЗАГРУЗКА</value>
+  </data>
+  <data name="SectionOptions" xml:space="preserve">
+    <value>ОПЦИИ</value>
+  </data>
+  <data name="SectionLog" xml:space="preserve">
+    <value>ЛОГ</value>
+  </data>
+  <data name="LabelApiKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="LabelUserId" xml:space="preserve">
+    <value>User ID</value>
+  </data>
+  <data name="LabelTagsFolder" xml:space="preserve">
+    <value>Папка с тегами / скачивания</value>
+  </data>
+  <data name="LabelThreads" xml:space="preserve">
+    <value>Потоков загрузки</value>
+  </data>
+  <data name="ToolTipApiKey" xml:space="preserve">
+    <value>128-символьный ключ от rule34.xxx</value>
+  </data>
+  <data name="PlaceholderUserId" xml:space="preserve">
+    <value>например: 6087836</value>
+  </data>
+  <data name="PlaceholderDir" xml:space="preserve">
+    <value>путь к папке...</value>
+  </data>
+  <data name="CheckSkipExisting" xml:space="preserve">
+    <value>Пропускать существующие файлы</value>
+  </data>
+  <data name="CheckDryRun" xml:space="preserve">
+    <value>Dry-run (без скачивания)</value>
+  </data>
+  <data name="BtnClearLog" xml:space="preserve">
+    <value>очистить</value>
+  </data>
+  <data name="BtnCheckAccess" xml:space="preserve">
+    <value>ПРОВЕРИТЬ ДОСТУП</value>
+  </data>
+  <data name="BtnRebuildIndex" xml:space="preserve">
+    <value>ПРОВЕРКА СПИСКОВ</value>
+  </data>
+  <data name="BtnStop" xml:space="preserve">
+    <value>СТОП</value>
+  </data>
+  <data name="BtnStart" xml:space="preserve">
+    <value>НАЧАТЬ ЗАГРУЗКУ</value>
+  </data>
+  <data name="StatusIdle" xml:space="preserve">
+    <value>не запущен</value>
+  </data>
+  <data name="BrowseFolderTitle" xml:space="preserve">
+    <value>Выберите папку с тегами</value>
+  </data>
+  <data name="ErrNoFolder" xml:space="preserve">
+    <value>! Укажите папку с тегами</value>
+  </data>
+  <data name="ErrFolderNotFound" xml:space="preserve">
+    <value>! Папка не найдена: {0}</value>
+  </data>
+  <data name="ErrAlreadyRunning" xml:space="preserve">
+    <value>! Уже выполняется операция</value>
+  </data>
+  <data name="StatusChecking" xml:space="preserve">
+    <value>проверка...</value>
+  </data>
+  <data name="StatusCheckDone" xml:space="preserve">
+    <value>проверка завершена</value>
+  </data>
+  <data name="StatusIndexing" xml:space="preserve">
+    <value>индексация...</value>
+  </data>
+  <data name="StatusIndexDone" xml:space="preserve">
+    <value>индексация завершена</value>
+  </data>
+  <data name="StatusNoFolders" xml:space="preserve">
+    <value>нет папок</value>
+  </data>
+  <data name="StatusError" xml:space="preserve">
+    <value>ошибка</value>
+  </data>
+  <data name="StatusLoading" xml:space="preserve">
+    <value>загрузка...</value>
+  </data>
+  <data name="StatusStopping" xml:space="preserve">
+    <value>остановка...</value>
+  </data>
+  <data name="LogStopSignal" xml:space="preserve">
+    <value>  &gt;&gt; Отправлен сигнал остановки...</value>
+  </data>
+  <data name="LogNoFoldersInDir" xml:space="preserve">
+    <value>  Нет папок в директории.</value>
+  </data>
+  <data name="LogRebuildHeader" xml:space="preserve">
+    <value>── Пересоздание индексов ────────────────────</value>
+  </data>
+  <data name="LogRebuildDone" xml:space="preserve">
+    <value>── Готово ───────────────────────────────────</value>
+  </data>
+  <data name="LogStartHeader" xml:space="preserve">
+    <value>── Запуск ───────────────────────────────────</value>
+  </data>
+  <data name="LogDirLabel" xml:space="preserve">
+    <value>  Директория : {0}</value>
+  </data>
+  <data name="LogThreadsLabel" xml:space="preserve">
+    <value>  Потоки     : {0}</value>
+  </data>
+  <data name="LogDryRunLabel" xml:space="preserve">
+    <value>  Dry-run    : {0}</value>
+  </data>
+  <data name="LogSkipLabel" xml:space="preserve">
+    <value>  Пропускать : {0}</value>
+  </data>
+  <data name="LogAuthLabel" xml:space="preserve">
+    <value>  Авторизация: {0}</value>
+  </data>
+  <data name="LogAuthAnon" xml:space="preserve">
+    <value>анонимно</value>
+  </data>
+  <data name="LogNoFolders" xml:space="preserve">
+    <value>! Нет папок в директории.</value>
+  </data>
+  <data name="LogArtistCount" xml:space="preserve">
+    <value>  Артистов: {0}</value>
+  </data>
+  <data name="LogCollecting" xml:space="preserve">
+    <value>[ {0} ]  — сбор постов...</value>
+  </data>
+  <data name="StatusCollecting" xml:space="preserve">
+    <value>сбор: {0}</value>
+  </data>
+  <data name="LogNoPostsFound" xml:space="preserve">
+    <value>  {0}: постов не найдено</value>
+  </data>
+  <data name="LogFolderProgress" xml:space="preserve">
+    <value>папка {0}/{1}</value>
+  </data>
+  <data name="LogPostsFound" xml:space="preserve">
+    <value>  {0}: найдено {1} постов</value>
+  </data>
+  <data name="LogDryRunSkip" xml:space="preserve">
+    <value>  {0}: dry-run, пропускаем</value>
+  </data>
+  <data name="StatusDownloading" xml:space="preserve">
+    <value>загрузка: {0}</value>
+  </data>
+  <data name="LogFolderDone" xml:space="preserve">
+    <value>  {0}: готово — ok={1}  skip={2}  fail={3}</value>
+  </data>
+  <data name="LogStoppedByUser" xml:space="preserve">
+    <value>── Остановлено пользователем ────────────────</value>
+  </data>
+  <data name="StatusStopped" xml:space="preserve">
+    <value>остановлено</value>
+  </data>
+  <data name="LogFinished" xml:space="preserve">
+    <value>── Готово!  {0}  скачано: {1}  пропущено: {2}  ошибок: {3} ────</value>
+  </data>
+  <data name="StatusFinished" xml:space="preserve">
+    <value>готово  ok={0}  skip={1}  fail={2}</value>
+  </data>
+  <data name="LogTotalTime" xml:space="preserve">
+    <value>Всего: {0}</value>
+  </data>
+  <data name="LogCheckAccessHeader" xml:space="preserve">
+    <value>── Проверка доступа ─────────────────────────</value>
+  </data>
+  <data name="LogSiteName" xml:space="preserve">
+    <value>rule34.xxx (сайт)</value>
+  </data>
+  <data name="LogApiName" xml:space="preserve">
+    <value>api.rule34.xxx (API)</value>
+  </data>
+  <data name="LogApiKeyCheck" xml:space="preserve">
+    <value>  API ключ (user_id={0}) ...</value>
+  </data>
+  <data name="LogApiKeyOk" xml:space="preserve">
+    <value>OK (ключ принят)</value>
+  </data>
+  <data name="LogApiKeyFail" xml:space="preserve">
+    <value>FAIL (403 — ключ отклонён)</value>
+  </data>
+  <data name="LogApiKeyUnknown" xml:space="preserve">
+    <value>?? (статус {0})</value>
+  </data>
+  <data name="LogNoAuth" xml:space="preserve">
+    <value>  Авторизация не настроена — API_KEY и USER_ID пусты</value>
+  </data>
+  <data name="LogSeparator" xml:space="preserve">
+    <value>─────────────────────────────────────────────</value>
+  </data>
+  <data name="LogFilesInIndex" xml:space="preserve">
+    <value>  {0}: {1} файлов в индексе</value>
+  </data>
+  <data name="LogFoldersProgress" xml:space="preserve">
+    <value>{0}/{1} папок</value>
+  </data>
+  <data name="LogErrorPrefix" xml:space="preserve">
+    <value>! Ошибка: {0}</value>
+  </data>
+  <data name="LogUnexpectedError" xml:space="preserve">
+    <value>! Неожиданная ошибка: {0}</value>
+  </data>
+</root>
