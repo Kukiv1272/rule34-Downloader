@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>r34_downloader</AssemblyName>
+    <RootNamespace>R34Downloader</RootNamespace>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+    <!--
+      Framework-dependent + single file: .exe весит ~1-3 МБ (один файл).
+      Требует установленный на машине пользователя .NET 8 Desktop Runtime:
+      https://dotnet.microsoft.com/download/dotnet/8.0
+      (выбрать "Desktop Runtime", не SDK).
+    -->
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+
+    <!--
+      Позволяет запускаться на более новых установленных runtime
+      (например, .NET 9), если точной версии 8.0 нет в системе.
+    -->
+    <RollForward>LatestMajor</RollForward>
+
+    <!-- Не упаковывать языковые ресурсы кроме нужных — ещё немного экономии -->
+    <SatelliteResourceLanguages>ru;en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <!--
+    Иконка приложения — опциональна.
+    Если файл r34_icon.ico лежит рядом с .csproj, раскомментируй строку ниже:
+  -->
+  <PropertyGroup Condition="Exists('r34_icon.ico')">
+    <ApplicationIcon>r34_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+</Project>
