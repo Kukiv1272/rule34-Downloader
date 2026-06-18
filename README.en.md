@@ -18,8 +18,7 @@ A Windows desktop application for batch-downloading images, GIFs, and videos fro
 - Progress bar and detailed log console showing the status of every file
 
 ## Screenshot
-
-*(feel free to add a screenshot of the UI here)*
+<img width="906" height="633" alt="r34_downloader_2026 18 06 09;37;30" src="https://github.com/user-attachments/assets/fc4d8c89-e7de-4929-910c-d69c50ca5cd2" />
 
 ## Requirements
 
