@@ -1,6 +1,6 @@
 # rule34 Downloader
 
-*[Читать на русском](README.md)*
+*[Читать на русском](README.ru.md)*
 
 A Windows desktop application for batch-downloading images, GIFs, and videos from rule34.xxx by tags, using the official XML API.
 
