@@ -224,6 +224,17 @@
                   Click="BtnRebuildIndex_Click"/>
         </StackPanel>
 
+        <!-- Таймер по центру -->
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                Background="{StaticResource BrushInput}"
+                BorderBrush="{StaticResource BrushBorder}"
+                BorderThickness="1" CornerRadius="3"
+                Padding="12,4">
+          <TextBlock x:Name="TimerLabel" Text="00:00:00"
+                     FontSize="18" FontWeight="Bold" FontFamily="Consolas"
+                     Foreground="{StaticResource BrushAccent}"/>
+        </Border>
+
         <!-- Правые кнопки -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                     VerticalAlignment="Center">

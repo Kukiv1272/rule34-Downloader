@@ -1,6 +1,8 @@
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using R34Downloader.Resources;
 
@@ -12,6 +14,8 @@ public partial class MainWindow : Window
     private CancellationTokenSource? _cts;
     private bool _running;
     private readonly AppConfig _appConfig;
+    private readonly Stopwatch _stopwatch = new();
+    private readonly DispatcherTimer _timer;
 
     // Цвета статуса
     private static readonly string ColGreen  = "#27AE60";
@@ -27,6 +31,9 @@ public partial class MainWindow : Window
         UserIdBox.Text = _appConfig.UserId;
         ApiKeyBox.PasswordChanged += (_, _) => SaveConfig();
         UserIdBox.TextChanged += (_, _) => SaveConfig();
+
+        _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        _timer.Tick += (_, _) => TimerLabel.Text = _stopwatch.Elapsed.ToString(@"hh\:mm\:ss");
     }
 
     private void SaveConfig()
@@ -74,6 +81,17 @@ public partial class MainWindow : Window
             BtnCheckAccess.IsEnabled = !running;
             BtnRebuildIndex.IsEnabled = !running;
             BtnStop.IsEnabled       = running;
+
+            if (running)
+            {
+                _stopwatch.Restart();
+                _timer.Start();
+            }
+            else
+            {
+                _stopwatch.Stop();
+                _timer.Stop();
+            }
         });
 
     // ─── Получение конфига из полей ввода ────────────────────────────────────
