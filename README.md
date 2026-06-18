@@ -32,9 +32,8 @@ Download the prebuilt `.exe` from [Releases](../../releases), or build it from s
 ### Building from source
 
 ```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>/R34Downloader
-dotnet publish -c Release
+   git clone https://github.com/Kukiv1272/rule34-Downloader.git
+   cd rule34-Downloader/R34Downloader
 ```
 
 The resulting executable will be at:
