@@ -1,6 +1,6 @@
 # rule34 Downloader
 
-*[Read in English](README.en.md)*
+*[Read in English](README.md)*
 
 Десктопное приложение для Windows для пакетной загрузки изображений, GIF и видео с rule34.xxx по тегам через официальный XML API.
 
