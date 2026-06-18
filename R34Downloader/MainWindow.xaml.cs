@@ -11,6 +11,7 @@ public partial class MainWindow : Window
     // ── Состояние ─────────────────────────────────────────────────────────────
     private CancellationTokenSource? _cts;
     private bool _running;
+    private readonly AppConfig _appConfig;
 
     // Цвета статуса
     private static readonly string ColGreen  = "#27AE60";
@@ -21,6 +22,18 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        _appConfig = AppConfig.Load();
+        ApiKeyBox.Password = _appConfig.ApiKey;
+        UserIdBox.Text = _appConfig.UserId;
+        ApiKeyBox.PasswordChanged += (_, _) => SaveConfig();
+        UserIdBox.TextChanged += (_, _) => SaveConfig();
+    }
+
+    private void SaveConfig()
+    {
+        _appConfig.ApiKey = ApiKeyBox.Password.Trim();
+        _appConfig.UserId = UserIdBox.Text.Trim();
+        _appConfig.Save();
     }
 
     // ─── Вспомогательные методы UI ───────────────────────────────────────────
