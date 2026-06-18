@@ -18,7 +18,7 @@
 - Прогресс-бар и лог-консоль с подробным статусом каждого файла
 
 ## Скриншот
-<img width="906" height="633" alt="r34_downloader_2026 18 06 09;18;47" src="https://github.com/user-attachments/assets/c7ed2b44-02ef-4aec-85b0-ac5f5e81c339" />
+<img width="906" height="633" alt="r34_downloader_2026 18 06 09;37;30" src="https://github.com/user-attachments/assets/82042ce0-edd2-448b-a987-88fedf11226b" />
 ## Требования
 
 - Windows 10/11 x64
