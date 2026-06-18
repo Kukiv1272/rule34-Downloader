@@ -19,6 +19,7 @@
 
 ## Скриншот
 <img width="906" height="633" alt="r34_downloader_2026 18 06 09;37;30" src="https://github.com/user-attachments/assets/82042ce0-edd2-448b-a987-88fedf11226b" />
+
 ## Требования
 
 - Windows 10/11 x64
