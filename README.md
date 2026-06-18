@@ -16,6 +16,7 @@ A Windows desktop application for batch-downloading images, GIFs, and videos fro
 - Index rebuild from files already on disk (in case `downloaded.txt` is lost or corrupted)
 - Ability to stop a download at any time without losing progress
 - Progress bar and detailed log console showing the status of every file
+- The app automatically saves your API key and User ID to a config file (Documents/R34Downloader/config.json) and restores them on next launch.
 
 ## Screenshot
 <img width="906" height="633" alt="r34_downloader_2026 18 06 09;37;30" src="https://github.com/user-attachments/assets/fc4d8c89-e7de-4929-910c-d69c50ca5cd2" />
