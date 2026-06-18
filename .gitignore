@@ -1,0 +1,15 @@
+# Папки сборки .NET
+bin/
+obj/
+
+# Файлы Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+
+# Публикация
+publish/
+
+# Локальные настройки/секреты, если появятся
+*.local.json
